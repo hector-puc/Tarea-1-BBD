@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}Detalle - {{ torneo[0] }}{% endblock %}
+
+{% block content %}
+<hgroup>
+    <h1>{{ torneo[0] }}</h1>
+    <h2>{{ torneo[1] }} | Prize Pool: ${{ "{:,.2f}".format(torneo[2]) }}</h2>
+</hgroup>
+
+<div class="grid">
+    <!-- Columna Izquierda: Posiciones -->
+    <section>
+        <h3>Tabla de Posiciones (Fase de Grupos)</h3>
+        {% if posiciones %}
+            <figure>
+                <table role="grid">
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Equipo</th>
+                            <th>PJ</th>
+                            <th>V</th>
+                            <th>Pts+</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in posiciones %}
+                        <tr>
+                            <td><strong>{{ p[0] }}</strong></td>
+                            <td>{{ p[1] }}</td>
+                            <td>{{ p[2] }}</td>
+                            <td>{{ p[3] }}</td>
+                            <td>{{ p[4] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </figure>
+        {% else %}
+            <p>No hay equipos inscritos aún.</p>
+        {% endif %}
+        
+        <a href="/inscribir/{{ torneoid }}" role="button">Inscribir mi equipo</a>
+    </section>
+
+    <!-- Columna Derecha: Sponsors -->
+    <section>
+        <h3>Sponsors</h3>
+        {% if sponsors %}
+            <ul>
+                {% for s in sponsors %}
+                <li><strong>{{ s[0] }}</strong> ({{ s[1] }}) - ${{ "{:,.0f}".format(s[2]) }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Este torneo no tiene sponsors registrados.</p>
+        {% endif %}
+    </section>
+</div>
+
+<hr>
+
+<h3>Partidas y Resultados</h3>
+{% if partidas %}
+    <figure>
+        <table role="grid">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Fase</th>
+                    <th>Encuentro</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for part in partidas %}
+                <tr>
+                    <td>{{ part[5].strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td><small>{{ part[0] }}</small></td>
+                    <td>{{ part[1] }} <strong>vs</strong> {{ part[2] }}</td>
+                    <td>
+                        {% if part[3] is not none %}
+                            <mark>{{ part[3] }} - {{ part[4] }}</mark>
+                        {% else %}
+                            <em>Pendiente</em>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+{% else %}
+    <p>No hay partidas programadas.</p>
+{% endif %}
+
+{% endblock %}

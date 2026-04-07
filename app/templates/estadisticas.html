@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block title %}Estadísticas de Torneo{% endblock %}
+
+{% block content %}
+<h1>Estadísticas y Rankings</h1>
+
+<form action="/estadisticas" method="GET">
+    <div class="grid">
+        <select name="torneo_id" onchange="this.form.submit()">
+            <option value="">Selecciona un Torneo...</option>
+            {% for t in torneos %}
+            <option value="{{ t[0] }}" {% if t[0] == sel_torneo %}selected{% endif %}>{{ t[1] }}</option>
+            {% endfor %}
+        </select>
+        
+        {% if sel_torneo %}
+        <select name="equipo_id" onchange="this.form.submit()">
+            <option value="">Comparar Equipo (Opcional)...</option>
+            {% for e in equipos %}
+            <option value="{{ e[0] }}" {% if e[0] == sel_equipo %}selected{% endif %}>{{ e[1] }}</option>
+            {% endfor %}
+        </select>
+        {% endif %}
+    </div>
+</form>
+
+{% if sel_torneo %}
+    <hr>
+    <h3>Ranking de Jugadores (Ratio KOs/Restarts)</h3>
+    <p><small>*Solo jugadores con al menos 2 partidas en este torneo.</small></p>
+    {% if ranking %}
+    <figure>
+        <table>
+            <thead>
+                <tr>
+                    <th>Jugador</th>
+                    <th>Equipo</th>
+                    <th>KOs</th>
+                    <th>Restarts</th>
+                    <th>Assists</th>
+                    <th>Ratio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in ranking %}
+                <tr>
+                    <td><strong>{{ r[0] }}</strong></td>
+                    <td>{{ r[1] }}</td>
+                    <td>{{ r[2] }}</td>
+                    <td>{{ r[3] }}</td>
+                    <td>{{ r[4] }}</td>
+                    <td><mark>{{ "{:.2f}".format(r[5]) if r[5] else 'N/A' }}</mark></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+    {% else %}
+    <p>No hay suficientes datos para generar el ranking.</p>
+    {% endif %}
+
+    {% if evolucion %}
+    <hr>
+    <h3>Evolución por Fase del Equipo</h3>
+    <figure>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fase</th>
+                    <th>Promedio KOs</th>
+                    <th>Promedio Restarts</th>
+                    <th>Promedio Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ev in evolucion %}
+                <tr>
+                    <td><strong>{{ ev[0] }}</strong></td>
+                    <td>{{ "{:.1f}".format(ev[1]) }}</td>
+                    <td>{{ "{:.1f}".format(ev[2]) }}</td>
+                    <td>{{ "{:.1f}".format(ev[3]) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+    {% endif %}
+{% endif %}
+{% endblock %}

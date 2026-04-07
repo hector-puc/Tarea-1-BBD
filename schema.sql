@@ -13,6 +13,22 @@
 -- ============================================================
 
 -- ============================================================
+-- LIMPIEZA INICIAL (Para permitir reinicializar sin errores)
+-- ============================================================
+DROP VIEW IF EXISTS v_resumen_financiero_torneo CASCADE;
+DROP VIEW IF EXISTS v_stats_jugador_torneo CASCADE;
+DROP VIEW IF EXISTS v_clasificacion_grupos CASCADE;
+DROP TABLE IF EXISTS Auspicio_Torneo CASCADE;
+DROP TABLE IF EXISTS Sponsor CASCADE;
+DROP TABLE IF EXISTS Estadistica_Individual CASCADE;
+DROP TABLE IF EXISTS Partida CASCADE;
+DROP TABLE IF EXISTS Inscripcion_Torneo CASCADE;
+DROP TABLE IF EXISTS Torneo CASCADE;
+DROP TABLE IF EXISTS Jugador CASCADE;
+DROP TABLE IF EXISTS Equipo CASCADE;
+DROP TYPE IF EXISTS fase_torneo CASCADE;
+
+-- ============================================================
 -- TIPOS ENUMERADOS
 -- ============================================================
 

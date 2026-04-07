@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}Sponsors Globales{% endblock %}
+
+{% block content %}
+<h1>Análisis de Sponsors</h1>
+<p>Busca empresas que han auspiciado <strong>todos</strong> los torneos de un videojuego específico.</p>
+
+<form action="/sponsors" method="GET">
+    <div class="grid">
+        <select name="videojuego" required>
+            <option value="">Selecciona un Videojuego...</option>
+            {% for v in videojuegos %}
+            <option value="{{ v }}" {% if v == sel_videojuego %}selected{% endif %}>{{ v }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filtrar Sponsors</button>
+    </div>
+</form>
+
+{% if sel_videojuego %}
+    <hr>
+    <h3>Sponsors de "{{ sel_videojuego }}"</h3>
+    {% if sponsors %}
+    <figure>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sponsor</th>
+                    <th>Industria</th>
+                    <th>Monto Total Aportado (USD)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in sponsors %}
+                <tr>
+                    <td><strong>{{ s[0] }}</strong></td>
+                    <td>{{ s[1] }}</td>
+                    <td>${{ "{:,.0f}".format(s[2]) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+    <p><small>✓ Estos sponsors han estado presentes en el 100% de los torneos de este juego.</small></p>
+    {% else %}
+    <p>No hay sponsors que cumplan con haber auspiciado todos los torneos de este videojuego.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

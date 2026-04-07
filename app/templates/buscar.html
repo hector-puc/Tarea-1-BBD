@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}Búsqueda de Jugadores y Equipos{% endblock %}
+
+{% block content %}
+<h1>Buscador</h1>
+<form action="/buscar" method="GET">
+    <div class="grid">
+        <input type="search" name="q" placeholder="Ej: Chile, Alpha, Carlos..." value="{{ busqueda }}" required>
+        <button type="submit">Buscar Ahora</button>
+    </div>
+</form>
+
+{% if busqueda %}
+    <hr>
+    <h2>Resultados para "{{ busqueda }}"</h2>
+
+    <div class="grid">
+        <!-- Jugadores -->
+        <section>
+            <h3>Jugadores</h3>
+            {% if jugadores %}
+                <figure>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Gamertag</th>
+                                <th>País</th>
+                                <th>Equipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for j in jugadores %}
+                            <tr>
+                                <td>{{ j[0] }}</td>
+                                <td>{{ j[2] }}</td>
+                                <td><small>{{ j[3] }}</small></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </figure>
+            {% else %}
+                <p>No se encontraron jugadores.</p>
+            {% endif %}
+        </section>
+
+        <!-- Equipos -->
+        <section>
+            <h3>Equipos</h3>
+            {% if equipos %}
+                <ul>
+                    {% for e in equipos %}
+                    <li><strong>{{ e[0] }}</strong> <br><small>Creado: {{ e[1].strftime('%d/%m/%Y') }}</small></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No se encontraron equipos.</p>
+            {% endif %}
+        </section>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}Lista de Torneos - Gaming{% endblock %}
+
+{% block content %}
+<h1>Torneos Activos</h1>
+<p>Selecciona un torneo para ver su tabla de posiciones y sponsors.</p>
+
+<figure>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th>Torneo</th>
+                <th>Videojuego</th>
+                <th>Prize Pool (USD)</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for torneo in torneos %}
+            <tr>
+                <td>{{ torneo[1] }}</td>
+                <td>{{ torneo[2] }}</td>
+                <td>${{ "{:,.2f}".format(torneo[3]) }}</td>
+                <td><a href="/torneo/{{ torneo[0] }}" role="button" class="secondary">Ver Detalle</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</figure>
+{% endblock %}
