@@ -20,15 +20,21 @@ comandos para inicializar:
 
 &#x20;  1. python -m venv venv
 
-&#x20;  2. venv\\Scripts\\activate
+&#x20;  2. venv\\Scripts\\activate (en linux, usar
+
+source venv/bin/activate)
 
 &#x20;  3. pip install -r app/requirements.txt
 
 &#x20;  4. python setup\_db.py
-
+py
 &#x20;  5. python app/main.py
 
 
 
 luego, ir a localhost:5000 en el navegador web.
+Para conectar a psql:
+psql -h localhost -p 5432 -U postgres -d tarea1
+
+
 
