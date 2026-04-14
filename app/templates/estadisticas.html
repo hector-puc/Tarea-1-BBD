@@ -28,7 +28,7 @@
 {% if sel_torneo %}
     <hr>
     <h3>Ranking de Jugadores (Ratio KOs/Restarts)</h3>
-    <p><small>*Solo jugadores con al menos 2 partidas en este torneo.</small></p>
+    <p><small>*Basado en el total del torneo para jugadores con al menos 2 partidas.</small></p>
     {% if ranking %}
     <figure>
         <table>
@@ -36,8 +36,8 @@
                 <tr>
                     <th>Jugador</th>
                     <th>Equipo</th>
-                    <th>KOs</th>
-                    <th>Restarts</th>
+                    <th>Total KOs</th>
+                    <th>Total Restarts</th>
                     <th>Assists</th>
                     <th>Ratio</th>
                 </tr>
@@ -60,9 +60,11 @@
     <p>No hay suficientes datos para generar el ranking.</p>
     {% endif %}
 
-    {% if evolucion %}
+    {% if sel_equipo %}
     <hr>
-    <h3>Evolución por Fase del Equipo</h3>
+    <h3>Evolución: Grupos vs Eliminatorias</h3>
+    <p>Comparación de promedios por jugador por partida para <strong>{{ sel_equipo }}</strong>:</p>
+    {% if evolucion %}
     <figure>
         <table>
             <thead>
@@ -77,14 +79,20 @@
                 {% for ev in evolucion %}
                 <tr>
                     <td><strong>{{ ev[0] }}</strong></td>
-                    <td>{{ "{:.1f}".format(ev[1]) }}</td>
-                    <td>{{ "{:.1f}".format(ev[2]) }}</td>
-                    <td>{{ "{:.1f}".format(ev[3]) }}</td>
+                    <td>{{ ev[1] }}</td>
+                    <td>{{ ev[2] }}</td>
+                    <td>{{ ev[3] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </figure>
+    {% if evolucion|length == 1 %}
+        <p><small>ℹ️ Este equipo solo registra actividad en una de las fases.</small></p>
+    {% endif %}
+    {% else %}
+    <p>No hay estadísticas registradas para este equipo.</p>
+    {% endif %}
     {% endif %}
 {% endif %}
 {% endblock %}

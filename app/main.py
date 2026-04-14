@@ -28,7 +28,6 @@ def detalle_torneo(nombre):
     if not torneo:
         return "Torneo no encontrado", 404
 
-    # Tabla de posiciones detallada (Natural Keys: nombre_equipo)
     cur.execute("""
         WITH resultados AS (
             SELECT 
@@ -93,6 +92,7 @@ def estadisticas():
     equipos_torneo = []
 
     if torneo_nom:
+        # Ranking de jugadores (General del Torneo)
         query_ranking = """
             SELECT j.gamertag, j.nombre_equipo, SUM(ei.kos), SUM(ei.restarts), SUM(ei.assists),
                    CAST(SUM(ei.kos) AS FLOAT) / NULLIF(SUM(ei.restarts), 0) as ratio
@@ -118,14 +118,18 @@ def estadisticas():
         equipos_torneo = cur.fetchall()
 
         if equipo_nom:
+            # Evolución: Grupos vs Eliminatorias (comparación de promedios por jugador)
             cur.execute("""
-                SELECT CASE WHEN fase = 'fase de grupos' THEN 'Grupos' ELSE 'Eliminatorias' END as fase_tipo,
-                       AVG(kos), AVG(restarts), AVG(assists)
+                SELECT 
+                    CASE WHEN fase = 'fase de grupos' THEN 'Fase de Grupos' 
+                         ELSE 'Fases Eliminatorias (Semi/Final)' END as fase_tipo,
+                    ROUND(AVG(kos), 2), ROUND(AVG(restarts), 2), ROUND(AVG(assists), 2)
                 FROM EstadisticaIndividual ei
                 JOIN Partida p ON ei.id_partida = p.id_partida
                 JOIN Jugador j ON ei.gamertag = j.gamertag
                 WHERE p.nombre_torneo = %s AND j.nombre_equipo = %s
                 GROUP BY fase_tipo
+                ORDER BY fase_tipo DESC
             """, (torneo_nom, equipo_nom))
             evolucion = cur.fetchall()
 

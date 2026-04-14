@@ -23,11 +23,11 @@
 
 {% if not success %}
 <form method="POST">
-    <label for="equipo_id">Selecciona tu Equipo:</label>
-    <select name="equipo_id" id="equipo_id" required>
+    <label for="equipo_nom">Selecciona tu Equipo:</label>
+    <select name="equipo_nom" id="equipo_nom" required>
         <option value="" disabled selected>Elegir equipo...</option>
         {% for e in equipos %}
-        <option value="{{ e[0] }}">{{ e[1] }}</option>
+        <option value="{{ e[0] }}">{{ e[0] }}</option>
         {% endfor %}
     </select>
     
