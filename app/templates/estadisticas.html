@@ -7,18 +7,18 @@
 
 <form action="/estadisticas" method="GET">
     <div class="grid">
-        <select name="torneo_id" onchange="this.form.submit()">
+        <select name="torneo_nom" onchange="this.form.submit()">
             <option value="">Selecciona un Torneo...</option>
             {% for t in torneos %}
-            <option value="{{ t[0] }}" {% if t[0] == sel_torneo %}selected{% endif %}>{{ t[1] }}</option>
+            <option value="{{ t[0] }}" {% if t[0] == sel_torneo %}selected{% endif %}>{{ t[0] }}</option>
             {% endfor %}
         </select>
         
         {% if sel_torneo %}
-        <select name="equipo_id" onchange="this.form.submit()">
+        <select name="equipo_nom" onchange="this.form.submit()">
             <option value="">Comparar Equipo (Opcional)...</option>
             {% for e in equipos %}
-            <option value="{{ e[0] }}" {% if e[0] == sel_equipo %}selected{% endif %}>{{ e[1] }}</option>
+            <option value="{{ e[0] }}" {% if e[0] == sel_equipo %}selected{% endif %}>{{ e[0] }}</option>
             {% endfor %}
         </select>
         {% endif %}

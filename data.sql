@@ -1,465 +1,228 @@
--- ============================================================
---  DATA: DATOS SINTÉTICOS COHERENTES
---  Base de Datos: Sistema de Gestión de Torneos de Videojuegos
--- ============================================================
 BEGIN;
 
 -- ============================================================
--- 1. EQUIPOS (10, sin capitán — dependencia circular con Jugador)
+-- 1. EQUIPOS (10 Equipos)
 -- ============================================================
-INSERT INTO Equipo (nombre, fecha_creacion) VALUES
-    ('Alpha Wolves',   '2023-01-15 10:00:00'),
-    ('Omega Force',    '2022-06-20 14:30:00'),
-    ('Phoenix Rising', '2023-03-10 09:15:00'),
-    ('Dragon Squad',   '2022-09-05 16:00:00'),
-    ('Shadow Ninjas',  '2023-02-28 11:45:00'),
-    ('Nova Stars',     '2022-11-14 13:00:00'),
-    ('Titan Clash',    '2023-04-01 08:30:00'),
-    ('Vortex Team',    '2022-08-22 17:20:00'),
-    ('Blaze Gaming',   '2023-05-17 12:00:00'),
-    ('Ghost Protocol', '2022-12-30 15:45:00');
+INSERT INTO Equipo (nombre_equipo, fecha_creacion) VALUES
+    ('Alpha Wolves',   '2023-01-01 10:00:00'),
+    ('Omega Force',    '2023-01-05 11:00:00'),
+    ('Phoenix Rising', '2023-01-10 12:00:00'),
+    ('Dragon Squad',   '2023-01-15 13:00:00'),
+    ('Shadow Ninjas',  '2023-01-20 14:00:00'),
+    ('Nova Stars',     '2023-01-25 15:00:00'),
+    ('Titan Clash',    '2023-01-30 16:00:00'),
+    ('Vortex Team',    '2023-02-01 17:00:00'),
+    ('Blaze Gaming',   '2023-02-05 18:00:00'),
+    ('Ghost Protocol', '2023-02-10 19:00:00');
 
 -- ============================================================
--- 2. JUGADORES (50 en total, 5 por equipo)
+-- 2. JUGADORES (50 Jugadores, 5 por equipo)
 -- ============================================================
-INSERT INTO Jugador (id_equipo, gamertag, nombre_real, email, fecha_nacimiento, pais_origen) VALUES
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Alpha Wolves'),'xAlphaLead','Carlos Mendoza','carlos.mendoza@alphawolves.gg','2000-04-12','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Alpha Wolves'),'xAlphaFrag','Diego Romero','diego.romero@alphawolves.gg','2001-07-23','Argentina'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Alpha Wolves'),'xAlphaAim','Felipe Castro','felipe.castro@alphawolves.gg','1999-11-05','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Alpha Wolves'),'xAlphaTank','Martin Lopez','martin.lopez@alphawolves.gg','2002-03-18','Colombia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Alpha Wolves'),'xAlphaSnipe','Sebastian Torres','sebastian.torres@alphawolves.gg','2000-09-30','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Omega Force'),'OmegaCaptain','Rodrigo Silva','rodrigo.silva@omegaforce.gg','1999-05-14','Brasil'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Omega Force'),'OmegaStrike','Lucas Oliveira','lucas.oliveira@omegaforce.gg','2001-02-28','Brasil'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Omega Force'),'OmegaFlash','Andres Herrera','andres.herrera@omegaforce.gg','2000-08-17','Mexico'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Omega Force'),'OmegaBlast','Pablo Vargas','pablo.vargas@omegaforce.gg','1998-12-03','Argentina'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Omega Force'),'OmegaGhost','Mateo Gonzalez','mateo.gonzalez@omegaforce.gg','2002-06-25','Uruguay'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Phoenix Rising'),'PhoenixBoss','Alejandro Ruiz','alejandro.ruiz@phoenixrising.gg','2001-01-09','Mexico'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Phoenix Rising'),'PhoenixFire','Camilo Morales','camilo.morales@phoenixrising.gg','2000-10-22','Colombia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Phoenix Rising'),'PhoenixAsh','Roberto Diaz','roberto.diaz@phoenixrising.gg','1999-07-14','Peru'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Phoenix Rising'),'PhoenixWing','Ignacio Perez','ignacio.perez@phoenixrising.gg','2002-04-07','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Phoenix Rising'),'PhoenixRise','Gabriel Santos','gabriel.santos@phoenixrising.gg','2001-09-19','Brasil'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Dragon Squad'),'DragonLord','Emilio Fuentes','emilio.fuentes@dragonsquad.gg','1998-03-25','Venezuela'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Dragon Squad'),'DragonFang','Cesar Reyes','cesar.reyes@dragonsquad.gg','2000-11-08','Ecuador'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Dragon Squad'),'DragonClaw','Omar Castillo','omar.castillo@dragonsquad.gg','2001-05-31','Bolivia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Dragon Squad'),'DragonScale','Nicolas Paredes','nicolas.paredes@dragonsquad.gg','1999-08-16','Argentina'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Dragon Squad'),'DragonBreath','Tomas Aguilar','tomas.aguilar@dragonsquad.gg','2002-01-27','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Shadow Ninjas'),'ShadowMaster','Javier Moreno','javier.moreno@shadowninja.gg','2000-06-11','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Shadow Ninjas'),'ShadowBlade','Andres Vega','andres.vega@shadowninja.gg','2001-03-24','Colombia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Shadow Ninjas'),'ShadowStep','Miguel Ramos','miguel.ramos@shadowninja.gg','1999-10-15','Mexico'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Shadow Ninjas'),'ShadowStrike','Francisco Jimenez','francisco.jimenez@shadowninja.gg','2002-07-03','Peru'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Shadow Ninjas'),'ShadowFlip','Cristian Munoz','cristian.munoz@shadowninja.gg','2000-02-19','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Nova Stars'),'NovaPrime','Ricardo Leon','ricardo.leon@novastars.gg','2001-09-07','Brasil'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Nova Stars'),'NovaBright','Sebastian Guzman','sebastian.guzman@novastars.gg','1999-12-20','Argentina'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Nova Stars'),'NovaBlast','Jorge Medina','jorge.medina@novastars.gg','2000-05-14','Colombia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Nova Stars'),'NovaFlash','Alvaro Suarez','alvaro.suarez@novastars.gg','2002-02-28','Venezuela'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Nova Stars'),'NovaCore','Daniel Ortiz','daniel.ortiz@novastars.gg','2001-08-09','Uruguay'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Titan Clash'),'TitanKing','Hernan Espinoza','hernan.espinoza@titanclash.gg','1998-07-30','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Titan Clash'),'TitanCrush','Luis Mendez','luis.mendez@titanclash.gg','2001-04-12','Mexico'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Titan Clash'),'TitanSmash','Eduardo Rios','eduardo.rios@titanclash.gg','2000-11-25','Brasil'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Titan Clash'),'TitanBreak','Vicente Carrasco','vicente.carrasco@titanclash.gg','2002-08-14','Argentina'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Titan Clash'),'TitanHold','Mauricio Pinto','mauricio.pinto@titanclash.gg','1999-03-07','Ecuador'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Vortex Team'),'VortexSpin','Claudio Navarro','claudio.navarro@vortexteam.gg','2001-06-18','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Vortex Team'),'VortexSwirl','Bryan Flores','bryan.flores@vortexteam.gg','2000-01-31','Peru'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Vortex Team'),'VortexTwist','Axel Ramirez','axel.ramirez@vortexteam.gg','1999-09-22','Bolivia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Vortex Team'),'VortexSurge','Ian Bermudez','ian.bermudez@vortexteam.gg','2002-05-08','Colombia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Vortex Team'),'VortexGale','Kevin Salinas','kevin.salinas@vortexteam.gg','2001-12-03','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Blaze Gaming'),'BlazeFire','Patricio Valenzuela','patricio.valenzuela@blazegaming.gg','2000-08-14','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Blaze Gaming'),'BlazeHeat','Ronald Caceres','ronald.caceres@blazegaming.gg','2001-11-27','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Blaze Gaming'),'BlazeFlame','Samuel Araya','samuel.araya@blazegaming.gg','1999-04-09','Argentina'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Blaze Gaming'),'BlazeScorch','Bastian Vera','bastian.vera@blazegaming.gg','2002-07-20','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Blaze Gaming'),'BlazeEmber','Gonzalo Pizarro','gonzalo.pizarro@blazegaming.gg','2000-02-15','Colombia'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Ghost Protocol'),'GhostAgent','Nicolas Soto','nicolas.soto@ghostprotocol.gg','2001-03-05','Chile'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Ghost Protocol'),'GhostSpec','Maximiliano Cruz','max.cruz@ghostprotocol.gg','1999-10-18','Brasil'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Ghost Protocol'),'GhostPhase','Fernando Ibanez','fernando.ibanez@ghostprotocol.gg','2000-06-29','Mexico'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Ghost Protocol'),'GhostHaunt','Rodrigo Acevedo','rodrigo.acevedo@ghostprotocol.gg','2002-09-12','Argentina'),
-    ((SELECT id_equipo FROM Equipo WHERE nombre = 'Ghost Protocol'),'GhostSilent','Jonathan Cordero','jonathan.cordero@ghostprotocol.gg','2001-01-24','Uruguay');
+-- Alpha Wolves
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('xAlphaLead', 'Carlos M.', 'carlos@alpha.gg', '2000-01-01', 'Chile', 'Alpha Wolves'),
+    ('xAlphaFrag', 'Diego R.', 'diego@alpha.gg', '2001-02-02', 'Argentina', 'Alpha Wolves'),
+    ('xAlphaAim', 'Felipe C.', 'felipe@alpha.gg', '1999-03-03', 'Chile', 'Alpha Wolves'),
+    ('xAlphaTank', 'Martin L.', 'martin@alpha.gg', '2002-04-04', 'Colombia', 'Alpha Wolves'),
+    ('xAlphaSnipe', 'Seba T.', 'seba@alpha.gg', '2000-05-05', 'Chile', 'Alpha Wolves');
+
+-- Omega Force
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('OmegaCap', 'Rodrigo S.', 'rodrigo@omega.gg', '1999-06-06', 'Brasil', 'Omega Force'),
+    ('OmegaStrike', 'Lucas O.', 'lucas@omega.gg', '2001-07-07', 'Brasil', 'Omega Force'),
+    ('OmegaFlash', 'Andres H.', 'andres@omega.gg', '2000-08-08', 'Mexico', 'Omega Force'),
+    ('OmegaBlast', 'Pablo V.', 'pablo@omega.gg', '1998-09-09', 'Argentina', 'Omega Force'),
+    ('OmegaGhost', 'Mateo G.', 'mateo@omega.gg', '2002-10-10', 'Uruguay', 'Omega Force');
+
+-- Phoenix Rising
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('PhoenixBoss', 'Ale Ruiz', 'ale@phoenix.gg', '2001-11-11', 'Mexico', 'Phoenix Rising'),
+    ('PhoenixFire', 'Camilo M.', 'camilo@phoenix.gg', '2000-12-12', 'Colombia', 'Phoenix Rising'),
+    ('PhoenixAsh', 'Rob Diaz', 'rob@phoenix.gg', '1999-01-13', 'Peru', 'Phoenix Rising'),
+    ('PhoenixWing', 'Ignacio P.', 'ignacio@phoenix.gg', '2002-02-14', 'Chile', 'Phoenix Rising'),
+    ('PhoenixRise', 'Gabi S.', 'gabi@phoenix.gg', '2001-03-15', 'Brasil', 'Phoenix Rising');
+
+-- Dragon Squad
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('DragonLord', 'Emilio F.', 'emilio@dragon.gg', '1998-04-16', 'Venezuela', 'Dragon Squad'),
+    ('DragonFang', 'Cesar R.', 'cesar@dragon.gg', '2000-05-17', 'Ecuador', 'Dragon Squad'),
+    ('DragonClaw', 'Omar C.', 'omar@dragon.gg', '2001-06-18', 'Bolivia', 'Dragon Squad'),
+    ('DragonScale', 'Nico P.', 'nico@dragon.gg', '1999-07-19', 'Argentina', 'Dragon Squad'),
+    ('DragonBreath', 'Tomas A.', 'tomas@dragon.gg', '2002-08-20', 'Chile', 'Dragon Squad');
+
+-- Shadow Ninjas
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('ShadowMaster', 'Javi M.', 'javi@shadow.gg', '2000-09-21', 'Chile', 'Shadow Ninjas'),
+    ('ShadowBlade', 'Andres V.', 'andres@shadow.gg', '2001-10-22', 'Colombia', 'Shadow Ninjas'),
+    ('ShadowStep', 'Miguel R.', 'miguel@shadow.gg', '1999-11-23', 'Mexico', 'Shadow Ninjas'),
+    ('ShadowStrike', 'Fran J.', 'fran@shadow.gg', '2002-12-24', 'Peru', 'Shadow Ninjas'),
+    ('ShadowFlip', 'Cris M.', 'cris@shadow.gg', '2000-01-25', 'Chile', 'Shadow Ninjas');
+
+-- Nova Stars
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('NovaPrime', 'Ricar L.', 'ricar@nova.gg', '2001-02-26', 'Brasil', 'Nova Stars'),
+    ('NovaBright', 'Seba G.', 'seba@nova.gg', '1999-03-27', 'Argentina', 'Nova Stars'),
+    ('NovaBlast', 'Jorge M.', 'jorge@nova.gg', '2000-04-28', 'Colombia', 'Nova Stars'),
+    ('NovaFlash', 'Alvaro S.', 'alvaro@nova.gg', '2002-05-29', 'Venezuela', 'Nova Stars'),
+    ('NovaCore', 'Dani O.', 'dani@nova.gg', '2001-06-30', 'Uruguay', 'Nova Stars');
+
+-- Titan Clash
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('TitanKing', 'Hernan E.', 'hernan@titan.gg', '1998-07-01', 'Chile', 'Titan Clash'),
+    ('TitanCrush', 'Luis M.', 'luis@titan.gg', '2001-08-02', 'Mexico', 'Titan Clash'),
+    ('TitanSmash', 'Edu R.', 'edu@titan.gg', '2000-09-03', 'Brasil', 'Titan Clash'),
+    ('TitanBreak', 'Vicen C.', 'vicen@titan.gg', '2002-10-04', 'Argentina', 'Titan Clash'),
+    ('TitanHold', 'Mauri P.', 'mauri@titan.gg', '1999-11-05', 'Ecuador', 'Titan Clash');
+
+-- Vortex Team
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('VortexSpin', 'Claudio N.', 'claudio@vortex.gg', '2001-12-06', 'Chile', 'Vortex Team'),
+    ('VortexSwirl', 'Bryan F.', 'bryan@vortex.gg', '2000-01-07', 'Peru', 'Vortex Team'),
+    ('VortexTwist', 'Axel R.', 'axel@vortex.gg', '1999-02-08', 'Bolivia', 'Vortex Team'),
+    ('VortexSurge', 'Ian B.', 'ian@vortex.gg', '2002-03-09', 'Colombia', 'Vortex Team'),
+    ('VortexGale', 'Kevin S.', 'kevin@vortex.gg', '2001-04-10', 'Chile', 'Vortex Team');
+
+-- Blaze Gaming
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('BlazeFire', 'Patri V.', 'patri@blaze.gg', '2000-05-11', 'Chile', 'Blaze Gaming'),
+    ('BlazeHeat', 'Ronald C.', 'ronald@blaze.gg', '2001-06-12', 'Chile', 'Blaze Gaming'),
+    ('BlazeFlame', 'Sam A.', 'sam@blaze.gg', '1999-07-13', 'Argentina', 'Blaze Gaming'),
+    ('BlazeScorch', 'Bas V.', 'bas@blaze.gg', '2002-08-14', 'Chile', 'Blaze Gaming'),
+    ('BlazeEmber', 'Gon P.', 'gon@blaze.gg', '2000-09-15', 'Colombia', 'Blaze Gaming');
+
+-- Ghost Protocol
+INSERT INTO Jugador (gamertag, nombre_real, email, fecha_nacimiento, pais_origen, nombre_equipo) VALUES
+    ('GhostAgent', 'Nico S.', 'nico@ghost.gg', '2001-10-16', 'Chile', 'Ghost Protocol'),
+    ('GhostSpec', 'Max C.', 'max@ghost.gg', '1999-11-17', 'Brasil', 'Ghost Protocol'),
+    ('GhostPhase', 'Fer I.', 'fer@ghost.gg', '2000-12-18', 'Mexico', 'Ghost Protocol'),
+    ('GhostHaunt', 'Rod A.', 'rod@ghost.gg', '2002-01-19', 'Argentina', 'Ghost Protocol'),
+    ('GhostSilent', 'Jon C.', 'jon@ghost.gg', '2001-02-20', 'Uruguay', 'Ghost Protocol');
 
 -- ============================================================
--- 3. ASIGNACIÓN DE CAPITANES (primer jugador de cada equipo)
---    La FK es DEFERRABLE INITIALLY DEFERRED: se valida en COMMIT
+-- 3. CAPITANES
 -- ============================================================
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaLead') WHERE nombre='Alpha Wolves';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaCaptain') WHERE nombre='Omega Force';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixBoss') WHERE nombre='Phoenix Rising';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='DragonLord') WHERE nombre='Dragon Squad';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowMaster') WHERE nombre='Shadow Ninjas';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='NovaPrime') WHERE nombre='Nova Stars';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='TitanKing') WHERE nombre='Titan Clash';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSpin') WHERE nombre='Vortex Team';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='BlazeFire') WHERE nombre='Blaze Gaming';
-UPDATE Equipo SET id_capitan=(SELECT id_jugador FROM Jugador WHERE gamertag='GhostAgent') WHERE nombre='Ghost Protocol';
+UPDATE Equipo SET capitan_gamertag = 'xAlphaLead' WHERE nombre_equipo = 'Alpha Wolves';
+UPDATE Equipo SET capitan_gamertag = 'OmegaCap' WHERE nombre_equipo = 'Omega Force';
+UPDATE Equipo SET capitan_gamertag = 'PhoenixBoss' WHERE nombre_equipo = 'Phoenix Rising';
+UPDATE Equipo SET capitan_gamertag = 'DragonLord' WHERE nombre_equipo = 'Dragon Squad';
+UPDATE Equipo SET capitan_gamertag = 'ShadowMaster' WHERE nombre_equipo = 'Shadow Ninjas';
+UPDATE Equipo SET capitan_gamertag = 'NovaPrime' WHERE nombre_equipo = 'Nova Stars';
+UPDATE Equipo SET capitan_gamertag = 'TitanKing' WHERE nombre_equipo = 'Titan Clash';
+UPDATE Equipo SET capitan_gamertag = 'VortexSpin' WHERE nombre_equipo = 'Vortex Team';
+UPDATE Equipo SET capitan_gamertag = 'BlazeFire' WHERE nombre_equipo = 'Blaze Gaming';
+UPDATE Equipo SET capitan_gamertag = 'GhostAgent' WHERE nombre_equipo = 'Ghost Protocol';
 
 -- ============================================================
--- 4. TORNEOS (3)
+-- 4. TORNEOS
 -- ============================================================
 INSERT INTO Torneo (nombre, videojuego, fecha_inicio, fecha_fin, prize_pool_usd, max_equipos) VALUES
-    ('Liga Mundial de Valorant 2025',    'Valorant',          '2025-03-01','2025-03-15', 50000.00, 8),
+    ('Liga Mundial de Valorant 2025', 'Valorant', '2025-03-01','2025-03-31', 50000.00, 8),
     ('Copa Latina de League of Legends', 'League of Legends', '2025-05-10','2025-05-30', 30000.00, 6),
-    ('Gran Prix de CS2 Chile 2025',      'Counter-Strike 2',  '2025-07-12','2025-07-25', 20000.00, 8);
+    ('Gran Prix de CS2 Chile 2025', 'Counter-Strike 2', '2025-07-12','2025-07-25', 20000.00, 8);
 
 -- ============================================================
--- 5. SPONSORS (6)
+-- 5. INSCRIPCIONES (T1 LLENO, T2 PARCIAL, T3 CASI LLENO)
 -- ============================================================
-INSERT INTO Sponsor (nombre, industria) VALUES
-    ('ASUS ROG',       'tecnologia'),
-    ('Red Bull',       'bebidas'),
-    ('Nike',           'ropa'),
-    ('Intel',          'tecnologia'),
-    ('Monster Energy', 'bebidas'),
-    ('Razer',          'tecnologia');
+-- Torneo 1 (8 equipos)
+INSERT INTO Inscripcion (nombre_torneo, nombre_equipo, grupo) VALUES
+    ('Liga Mundial de Valorant 2025', 'Alpha Wolves', 'A'),
+    ('Liga Mundial de Valorant 2025', 'Omega Force', 'A'),
+    ('Liga Mundial de Valorant 2025', 'Phoenix Rising', 'A'),
+    ('Liga Mundial de Valorant 2025', 'Dragon Squad', 'A'),
+    ('Liga Mundial de Valorant 2025', 'Shadow Ninjas', 'B'),
+    ('Liga Mundial de Valorant 2025', 'Nova Stars', 'B'),
+    ('Liga Mundial de Valorant 2025', 'Titan Clash', 'B'),
+    ('Liga Mundial de Valorant 2025', 'Vortex Team', 'B');
 
--- ============================================================
--- 6. INSCRIPCIONES A TORNEOS
---    T1 (Valorant):    8 equipos — CUPO COMPLETO (max_equipos=8)
---    T2 (LoL):         4 equipos  (cupo 6, aún disponible)
---    T3 (CS2):         3 equipos  (cupo 8)
--- ============================================================
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves'),'A');
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force'),'A');
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising'),'A');
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad'),'A');
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas'),'B');
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars'),'B');
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash'),'B');
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo,grupo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team'),'B');
+-- Torneo 2 (4 equipos de 6)
+INSERT INTO Inscripcion (nombre_torneo, nombre_equipo, grupo) VALUES
+    ('Copa Latina de League of Legends', 'Alpha Wolves', 'A'),
+    ('Copa Latina de League of Legends', 'Shadow Ninjas', 'A'),
+    ('Copa Latina de League of Legends', 'Blaze Gaming', 'B'),
+    ('Copa Latina de League of Legends', 'Ghost Protocol', 'B');
 
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Copa Latina de League of Legends'),(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves'));
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Copa Latina de League of Legends'),(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force'));
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Copa Latina de League of Legends'),(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas'));
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Copa Latina de League of Legends'),(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars'));
-
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Gran Prix de CS2 Chile 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising'));
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Gran Prix de CS2 Chile 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash'));
-INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES ((SELECT id_torneo FROM Torneo WHERE nombre='Gran Prix de CS2 Chile 2025'),(SELECT id_equipo FROM Equipo WHERE nombre='Blaze Gaming'));
+-- Torneo 3 (7 equipos de 8)
+INSERT INTO Inscripcion (nombre_torneo, nombre_equipo) VALUES
+    ('Gran Prix de CS2 Chile 2025', 'Phoenix Rising'),
+    ('Gran Prix de CS2 Chile 2025', 'Dragon Squad'),
+    ('Gran Prix de CS2 Chile 2025', 'Titan Clash'),
+    ('Gran Prix de CS2 Chile 2025', 'Vortex Team'),
+    ('Gran Prix de CS2 Chile 2025', 'Blaze Gaming'),
+    ('Gran Prix de CS2 Chile 2025', 'Ghost Protocol'),
+    ('Gran Prix de CS2 Chile 2025', 'Omega Force');
 
 -- ============================================================
--- 7. AUSPICIOS
+-- 6. PARTIDAS (Torneo 1 completo - 15 partidas)
 -- ============================================================
-INSERT INTO Auspicio_Torneo(id_sponsor,id_torneo,monto_usd) VALUES
-    ((SELECT id_sponsor FROM Sponsor WHERE nombre='ASUS ROG'),      (SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),    50000.00),
-    ((SELECT id_sponsor FROM Sponsor WHERE nombre='Red Bull'),      (SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),    30000.00),
-    ((SELECT id_sponsor FROM Sponsor WHERE nombre='Intel'),         (SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),    40000.00),
-    ((SELECT id_sponsor FROM Sponsor WHERE nombre='Nike'),          (SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),    20000.00),
-    ((SELECT id_sponsor FROM Sponsor WHERE nombre='Monster Energy'),(SELECT id_torneo FROM Torneo WHERE nombre='Copa Latina de League of Legends'), 25000.00),
-    ((SELECT id_sponsor FROM Sponsor WHERE nombre='Razer'),         (SELECT id_torneo FROM Torneo WHERE nombre='Copa Latina de League of Legends'), 35000.00),
-    ((SELECT id_sponsor FROM Sponsor WHERE nombre='Red Bull'),      (SELECT id_torneo FROM Torneo WHERE nombre='Gran Prix de CS2 Chile 2025'),      20000.00);
+-- GRUPO A
+INSERT INTO Partida (nombre_torneo, equipo_a, equipo_b, fecha_hora, fase, puntaje_a, puntaje_b) VALUES
+    ('Liga Mundial de Valorant 2025', 'Alpha Wolves', 'Omega Force', '2025-03-01 10:00:00', 'fase de grupos', 16, 9),
+    ('Liga Mundial de Valorant 2025', 'Phoenix Rising', 'Dragon Squad', '2025-03-01 14:00:00', 'fase de grupos', 13, 11),
+    ('Liga Mundial de Valorant 2025', 'Alpha Wolves', 'Phoenix Rising', '2025-03-02 10:00:00', 'fase de grupos', 14, 14),
+    ('Liga Mundial de Valorant 2025', 'Omega Force', 'Dragon Squad', '2025-03-02 14:00:00', 'fase de grupos', 12, 16),
+    ('Liga Mundial de Valorant 2025', 'Alpha Wolves', 'Dragon Squad', '2025-03-03 10:00:00', 'fase de grupos', 16, 5),
+    ('Liga Mundial de Valorant 2025', 'Omega Force', 'Phoenix Rising', '2025-03-03 14:00:00', 'fase de grupos', 10, 16);
 
--- ============================================================
--- 8. PARTIDAS — Torneo 1 completo (15 partidas)
---    Grupo A: Alpha, Omega, Phoenix, Dragon
---    Grupo B: Shadow, Nova, Titan, Vortex
---    Avanzan: Alpha (1A), Omega (2A), Shadow (1B), Nova (2B)
---    Campeón: Alpha Wolves
--- ============================================================
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Omega Force'),
-     '2025-03-01 14:00:00','fase de grupos',16,9);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising'),
-     '2025-03-02 14:00:00','fase de grupos',13,7);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad'),
-     '2025-03-03 14:00:00','fase de grupos',14,5);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Omega Force'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising'),
-     '2025-03-04 14:00:00','fase de grupos',11,8);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Omega Force'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad'),
-     '2025-03-05 14:00:00','fase de grupos',12,6);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad'),
-     '2025-03-06 14:00:00','fase de grupos',10,8);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars'),
-     '2025-03-01 17:00:00','fase de grupos',15,10);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash'),
-     '2025-03-02 17:00:00','fase de grupos',13,8);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team'),
-     '2025-03-03 17:00:00','fase de grupos',16,7);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash'),
-     '2025-03-04 17:00:00','fase de grupos',12,9);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team'),
-     '2025-03-05 17:00:00','fase de grupos',14,8);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team'),
-     '2025-03-06 17:00:00','fase de grupos',11,9);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars'),
-     '2025-03-12 14:00:00','semifinal',13,10);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Omega Force'),
-     '2025-03-12 17:00:00','semifinal',12,9);
-INSERT INTO Partida(id_torneo,id_equipo_A,id_equipo_B,fecha_hora,fase,puntaje_equipo_A,puntaje_equipo_B) VALUES
-    ((SELECT id_torneo FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves'),
-     (SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas'),
-     '2025-03-15 16:00:00','final',15,12);
+-- GRUPO B
+INSERT INTO Partida (nombre_torneo, equipo_a, equipo_b, fecha_hora, fase, puntaje_a, puntaje_b) VALUES
+    ('Liga Mundial de Valorant 2025', 'Shadow Ninjas', 'Nova Stars', '2025-03-01 17:00:00', 'fase de grupos', 15, 12),
+    ('Liga Mundial de Valorant 2025', 'Titan Clash', 'Vortex Team', '2025-03-02 17:00:00', 'fase de grupos', 11, 16),
+    ('Liga Mundial de Valorant 2025', 'Shadow Ninjas', 'Titan Clash', '2025-03-03 17:00:00', 'fase de grupos', 16, 8),
+    ('Liga Mundial de Valorant 2025', 'Nova Stars', 'Vortex Team', '2025-03-04 17:00:00', 'fase de grupos', 12, 14),
+    ('Liga Mundial de Valorant 2025', 'Shadow Ninjas', 'Vortex Team', '2025-03-05 17:00:00', 'fase de grupos', 16, 10),
+    ('Liga Mundial de Valorant 2025', 'Nova Stars', 'Titan Clash', '2025-03-06 17:00:00', 'fase de grupos', 14, 11);
+
+-- SEMIFINALES
+INSERT INTO Partida (nombre_torneo, equipo_a, equipo_b, fecha_hora, fase, puntaje_a, puntaje_b) VALUES
+    ('Liga Mundial de Valorant 2025', 'Alpha Wolves', 'Vortex Team', '2025-03-10 15:00:00', 'semifinal', 13, 10),
+    ('Liga Mundial de Valorant 2025', 'Shadow Ninjas', 'Phoenix Rising', '2025-03-11 15:00:00', 'semifinal', 12, 16);
+
+-- FINAL
+INSERT INTO Partida (nombre_torneo, equipo_a, equipo_b, fecha_hora, fase, puntaje_a, puntaje_b) VALUES
+    ('Liga Mundial de Valorant 2025', 'Alpha Wolves', 'Phoenix Rising', '2025-03-20 18:00:00', 'final', 16, 12);
 
 -- ============================================================
--- 9. ESTADÍSTICAS INDIVIDUALES (10 jugadores × 15 partidas = 150 filas)
+-- 7. ESTADISTICAS INDIVIDUALES (Para todos los partidos de T1)
 -- ============================================================
--- Partida 1: Alpha Wolves vs Omega Force (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaLead'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaFrag'),3,0,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaAim'),3,0,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaTank'),4,1,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaSnipe'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaCaptain'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaStrike'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaFlash'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaBlast'),2,2,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaGhost'),2,2,4);
+-- Ejemplos para Alpha Wolves en todas sus partidas (para el Ranking)
+INSERT INTO EstadisticaIndividual (id_partida, gamertag, kos, restarts, assists) VALUES
+    (1, 'xAlphaLead', 20, 5, 5), (1, 'xAlphaFrag', 15, 8, 10),
+    (3, 'xAlphaLead', 25, 4, 8), (3, 'xAlphaFrag', 18, 6, 7),
+    (5, 'xAlphaLead', 30, 3, 12), (5, 'xAlphaFrag', 22, 5, 9),
+    (13, 'xAlphaLead', 18, 10, 4), (13, 'xAlphaFrag', 12, 12, 3),
+    (15, 'xAlphaLead', 28, 6, 15), (15, 'xAlphaFrag', 20, 8, 11);
 
--- Partida 2: Alpha Wolves vs Phoenix Rising (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaLead'),3,0,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaFrag'),4,1,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaAim'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaTank'),4,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaSnipe'),5,2,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixBoss'),1,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixFire'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixAsh'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixWing'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixRise'),3,3,2);
+-- Ejemplos para Phoenix Rising (para el Ranking y Evolución)
+INSERT INTO EstadisticaIndividual (id_partida, gamertag, kos, restarts, assists) VALUES
+    (2, 'PhoenixBoss', 22, 5, 10), (2, 'PhoenixFire', 18, 6, 8),
+    (3, 'PhoenixBoss', 15, 8, 5),  (3, 'PhoenixFire', 20, 5, 12),
+    (6, 'PhoenixBoss', 28, 4, 15), (6, 'PhoenixFire', 22, 7, 11),
+    (14, 'PhoenixBoss', 30, 2, 8), (14, 'PhoenixFire', 18, 10, 5),
+    (15, 'PhoenixBoss', 20, 12, 6), (15, 'PhoenixFire', 15, 15, 4);
 
--- Partida 3: Alpha Wolves vs Dragon Squad (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaLead'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaFrag'),4,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaAim'),5,2,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaTank'),5,2,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaSnipe'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonLord'),2,2,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonFang'),2,2,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonClaw'),3,3,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonScale'),3,3,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonBreath'),3,3,1);
+-- Otros jugadores para que no se vea vacio
+INSERT INTO EstadisticaIndividual (id_partida, gamertag, kos, restarts, assists) VALUES
+    (1, 'OmegaCap', 15, 10, 5), (7, 'ShadowMaster', 25, 4, 8), (7, 'NovaPrime', 18, 9, 3);
 
--- Partida 4: Omega Force vs Phoenix Rising (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaCaptain'),4,1,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaStrike'),5,2,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaFlash'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaBlast'),3,0,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaGhost'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixBoss'),2,2,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixFire'),3,3,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixAsh'),3,3,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixWing'),1,1,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixRise'),1,1,3);
+-- ============================================================
+-- 8. SPONSORS Y AUSPICIOS
+-- ============================================================
+INSERT INTO Sponsor (nombre_sponsor, industria) VALUES 
+    ('ASUS ROG', 'tecnologia'), ('Red Bull', 'bebidas'), ('Intel', 'tecnologia'), 
+    ('Logitech', 'perifericos'), ('Monster Energy', 'bebidas');
 
--- Partida 5: Omega Force vs Dragon Squad (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaCaptain'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaStrike'),5,2,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaFlash'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaBlast'),3,0,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaGhost'),4,1,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonLord'),3,3,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonFang'),3,3,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonClaw'),1,1,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonScale'),1,1,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonBreath'),2,2,1);
-
--- Partida 6: Phoenix Rising vs Dragon Squad (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixBoss'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixFire'),3,0,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixAsh'),3,0,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixWing'),4,1,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='PhoenixRise'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonLord'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonFang'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonClaw'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonScale'),2,2,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Phoenix Rising') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Dragon Squad')),(SELECT id_jugador FROM Jugador WHERE gamertag='DragonBreath'),2,2,4);
-
--- Partida 7: Shadow Ninjas vs Nova Stars (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowMaster'),3,0,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowBlade'),4,1,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStep'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStrike'),4,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowFlip'),5,2,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaPrime'),1,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBright'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBlast'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaFlash'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-01 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaCore'),3,3,2);
-
--- Partida 8: Shadow Ninjas vs Titan Clash (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowMaster'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowBlade'),4,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStep'),5,2,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStrike'),5,2,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowFlip'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanKing'),2,2,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanCrush'),2,2,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanSmash'),3,3,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanBreak'),3,3,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-02 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanHold'),3,3,1);
-
--- Partida 9: Shadow Ninjas vs Vortex Team (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowMaster'),4,1,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowBlade'),5,2,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStep'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStrike'),3,0,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowFlip'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSpin'),2,2,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSwirl'),3,3,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexTwist'),3,3,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSurge'),1,1,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-03 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexGale'),1,1,3);
-
--- Partida 10: Nova Stars vs Titan Clash (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaPrime'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBright'),5,2,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBlast'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaFlash'),3,0,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaCore'),4,1,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanKing'),3,3,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanCrush'),3,3,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanSmash'),1,1,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanBreak'),1,1,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-04 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanHold'),2,2,1);
-
--- Partida 11: Nova Stars vs Vortex Team (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaPrime'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBright'),3,0,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBlast'),3,0,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaFlash'),4,1,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaCore'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSpin'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSwirl'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexTwist'),1,1,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSurge'),2,2,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-05 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexGale'),2,2,4);
-
--- Partida 12: Titan Clash vs Vortex Team (fase de grupos)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanKing'),3,0,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanCrush'),4,1,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanSmash'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanBreak'),4,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='TitanHold'),5,2,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSpin'),1,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSwirl'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexTwist'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexSurge'),2,2,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-06 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Titan Clash') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Vortex Team')),(SELECT id_jugador FROM Jugador WHERE gamertag='VortexGale'),3,3,2);
-
--- Partida 13: Alpha Wolves vs Nova Stars (semifinal)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaLead'),4,1,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaFrag'),4,1,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaAim'),5,2,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaTank'),5,2,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaSnipe'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaPrime'),2,2,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBright'),2,2,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaBlast'),3,3,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaFlash'),3,3,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 14:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Nova Stars')),(SELECT id_jugador FROM Jugador WHERE gamertag='NovaCore'),3,3,1);
-
--- Partida 14: Shadow Ninjas vs Omega Force (semifinal)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowMaster'),4,1,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowBlade'),5,2,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStep'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStrike'),3,0,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowFlip'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaCaptain'),2,2,1);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaStrike'),3,3,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaFlash'),3,3,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaBlast'),1,1,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-12 17:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Omega Force')),(SELECT id_jugador FROM Jugador WHERE gamertag='OmegaGhost'),1,1,3);
-
--- Partida 15: Alpha Wolves vs Shadow Ninjas (final)
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaLead'),5,2,6);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaFrag'),5,2,5);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaAim'),3,0,4);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaTank'),3,0,8);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='xAlphaSnipe'),4,1,7);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowMaster'),3,3,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowBlade'),3,3,3);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStep'),1,1,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowStrike'),1,1,2);
-INSERT INTO Estadistica_Individual(id_partida,id_jugador,kos,restarts,assists) VALUES((SELECT p.id_partida FROM Partida p JOIN Torneo t ON t.id_torneo=p.id_torneo WHERE t.nombre='Liga Mundial de Valorant 2025' AND p.fecha_hora='2025-03-15 16:00:00' AND p.id_equipo_A=(SELECT id_equipo FROM Equipo WHERE nombre='Alpha Wolves') AND p.id_equipo_B=(SELECT id_equipo FROM Equipo WHERE nombre='Shadow Ninjas')),(SELECT id_jugador FROM Jugador WHERE gamertag='ShadowFlip'),2,2,1);
+INSERT INTO Auspicio (nombre_sponsor, nombre_torneo, monto_usd) VALUES
+    ('ASUS ROG', 'Liga Mundial de Valorant 2025', 50000.00),
+    ('ASUS ROG', 'Copa Latina de League of Legends', 20000.00),
+    ('ASUS ROG', 'Gran Prix de CS2 Chile 2025', 30000.00),
+    ('Red Bull', 'Liga Mundial de Valorant 2025', 30000.00),
+    ('Intel', 'Liga Mundial de Valorant 2025', 40000.00),
+    ('Logitech', 'Copa Latina de League of Legends', 15000.00),
+    ('Monster Energy', 'Gran Prix de CS2 Chile 2025', 25000.00);
 
 COMMIT;
 
--- ============================================================
--- 10. CASO DE PRUEBA: Torneo lleno — trigger trg_validar_max_equipos
--- ============================================================
--- 'Liga Mundial de Valorant 2025' tiene max_equipos=8 y ya tiene
--- 8 equipos inscritos. 'Blaze Gaming' intenta inscribirse → FALLA.
--- El bloque DO captura la excepción sin abortar el script.
--- ============================================================
-DO $$
-DECLARE
-    v_t BIGINT;
-    v_e BIGINT;
-BEGIN
-    SELECT id_torneo INTO v_t FROM Torneo WHERE nombre='Liga Mundial de Valorant 2025';
-    SELECT id_equipo INTO v_e FROM Equipo  WHERE nombre='Blaze Gaming';
-
-    INSERT INTO Inscripcion_Torneo(id_torneo,id_equipo) VALUES (v_t,v_e);
-
-    RAISE NOTICE 'ERROR: La inscripción debería haber sido rechazada.';
-EXCEPTION
-    WHEN OTHERS THEN
-        RAISE NOTICE '>>> TRIGGER ACTIVADO CORRECTAMENTE <<<';
-        RAISE NOTICE 'Equipo "Blaze Gaming" rechazado del torneo "Liga Mundial de Valorant 2025"';
-        RAISE NOTICE 'Mensaje: %', SQLERRM;
-END;
-$$;
-
--- ============================================================
--- CONSULTAS DE VERIFICACIÓN
--- ============================================================
--- SELECT COUNT(*) FROM Jugador;                  -- 50
--- SELECT COUNT(*) FROM Equipo;                   -- 10
--- SELECT COUNT(*) FROM Torneo;                   -- 3
--- SELECT COUNT(*) FROM Partida;                  -- 15
--- SELECT COUNT(*) FROM Estadistica_Individual;   -- 150
--- SELECT COUNT(*) FROM Inscripcion_Torneo;       -- 15 (8+4+3)
--- SELECT COUNT(*) FROM Sponsor;                  -- 6
--- SELECT COUNT(*) FROM Auspicio_Torneo;          -- 7
---
--- -- Clasificación Torneo 1:
--- SELECT * FROM v_clasificacion_grupos
--- WHERE torneo='Liga Mundial de Valorant 2025'
--- ORDER BY grupo, victorias DESC, puntos_favor DESC;
---
--- -- Top jugadores por KOs:
--- SELECT gamertag,equipo,total_kos,total_assists
--- FROM v_stats_jugador_torneo
--- WHERE torneo='Liga Mundial de Valorant 2025'
--- ORDER BY total_kos DESC LIMIT 10;
---
--- -- Resumen financiero:
--- SELECT * FROM v_resumen_financiero_torneo;
+-- CASO DE PRUEBA: Torneo lleno (Para validación de la Parte C)
+-- 'Liga Mundial de Valorant 2025' ya tiene 8 equipos.
+-- El siguiente INSERT fallará por el trigger trg_validar_cupo.
+-- INSERT INTO Inscripcion (nombre_torneo, nombre_equipo) VALUES ('Liga Mundial de Valorant 2025', 'Blaze Gaming');

@@ -44,8 +44,20 @@
         <a href="/inscribir/{{ torneoid }}" role="button">Inscribir mi equipo</a>
     </section>
 
-    <!-- Columna Derecha: Sponsors -->
+    <!-- Columna Derecha: Sponsors y Equipos -->
     <section>
+        <h3>Equipos Inscritos</h3>
+        {% if posiciones %}
+            <ul>
+                {% for p in posiciones %}
+                <li>{{ p[1] }} <small>(Grupo {{ p[0] }})</small></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay equipos inscritos.</p>
+        {% endif %}
+
+        <hr>
         <h3>Sponsors</h3>
         {% if sponsors %}
             <ul>

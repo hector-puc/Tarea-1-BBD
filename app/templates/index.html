@@ -19,9 +19,9 @@
         <tbody>
             {% for torneo in torneos %}
             <tr>
+                <td>{{ torneo[0] }}</td>
                 <td>{{ torneo[1] }}</td>
-                <td>{{ torneo[2] }}</td>
-                <td>${{ "{:,.2f}".format(torneo[3]) }}</td>
+                <td>${{ "{:,.2f}".format(torneo[2]) }}</td>
                 <td><a href="/torneo/{{ torneo[0] }}" role="button" class="secondary">Ver Detalle</a></td>
             </tr>
             {% endfor %}
