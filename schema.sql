@@ -244,8 +244,8 @@ CREATE TABLE Partida (
     CONSTRAINT fk_partida_torneo
         FOREIGN KEY (id_torneo)
         REFERENCES  Torneo(id_torneo)
-        ON DELETE   RESTRICT
-        ON UPDATE   CASCADE,
+        ON DELETE   RESTRICT --Restringe la eliminacion de datos
+        ON UPDATE   CASCADE, -- Hace que se actualicen losa datos en cascada
 
     CONSTRAINT fk_partida_equipo_A
         FOREIGN KEY (id_equipo_A)
